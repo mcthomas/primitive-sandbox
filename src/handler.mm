@@ -32,4 +32,16 @@ void Handler::draw() {
 	if(drawPrimitiveDisplay) {
 		//Call on method
 	}
+	for(Box i : boxes) {
+		i.draw();
+	}
+	for(Sphere i : spheres) {
+		i.draw();
+	}
+	for(Cylinder i : cylinders) {
+		i.draw();
+	}
+	for(Cone i : cones) {
+		i.draw();
+	}
 }

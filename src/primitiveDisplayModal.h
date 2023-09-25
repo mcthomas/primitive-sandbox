@@ -1,6 +1,6 @@
 #pragma once
 
-class primitiveDisplayModal {
+class PrimitiveDisplayModal {
 public:
-	primitiveDisplayModal();
+	PrimitiveDisplayModal();
 };

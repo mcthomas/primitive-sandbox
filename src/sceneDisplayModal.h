@@ -1,6 +1,6 @@
 #pragma once
 
-class sceneDisplayModal {
+class SceneDisplayModal {
 public:
-	sceneDisplayModal();
+	SceneDisplayModal();
 };
