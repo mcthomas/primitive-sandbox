@@ -13,8 +13,8 @@ using namespace std;
 
 class Handler {
 private:
-	SceneDisplayModal sceneModal;
-	PrimitiveDisplayModal primitiveModal;
+	SceneDisplayModal* sceneModal;
+	PrimitiveDisplayModal* primitiveModal;
 	vector<Box> boxes;
 	vector<Sphere> spheres;
 	vector<Cylinder> cylinders;

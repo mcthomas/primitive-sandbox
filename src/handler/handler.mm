@@ -3,8 +3,10 @@
 using namespace std;
 
 Handler::Handler(void) {
-	drawSceneDisplay = false;
-	drawPrimitiveDisplay = false;
+	this->sceneModal = new SceneDisplayModal("Scene Models Count", 0, 0, 0, 0, 0, "Scene Models Size", 0, 0, 0, 0, 0, "Scene Models Color", 0, 0, 0, 0, 0);
+	this->primitiveModal = new PrimitiveDisplayModal("Model Size", 0, 0, 0, 0, 0, "Model Color", 0, 0, 0, 0, 0);
+	drawSceneDisplay = true;
+	drawPrimitiveDisplay = true;
 }
 void Handler::rotateScene(float x1, float y1, float x2, float y2) {
 	
@@ -26,11 +28,11 @@ void Handler::closeModal(bool isPrimitive) {
 	}
 }
 void Handler::draw() {
-	if(drawSceneDisplay) {
-		//Call on method
+	if(!drawSceneDisplay) {
+		//Method to hide modals?
 	}
-	if(drawPrimitiveDisplay) {
-		//Call on method
+	if(!drawPrimitiveDisplay) {
+		//Method to hide modals?
 	}
 	for(Box i : boxes) {
 		i.draw();
