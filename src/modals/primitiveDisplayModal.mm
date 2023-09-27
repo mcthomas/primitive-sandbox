@@ -3,5 +3,8 @@
 using namespace std;
 
 PrimitiveDisplayModal::PrimitiveDisplayModal() {
+
+}
+void PrimitiveDisplayModal::setup() {
 	
 }

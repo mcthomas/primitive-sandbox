@@ -1,11 +1,11 @@
 #pragma once
 
-#include "sceneDisplayModal.h"
-#include "primitiveDisplayModal.h"
-#include "box.h"
-#include "sphere.h"
-#include "cylinder.h"
-#include "cone.h"
+#include "../modals/sceneDisplayModal.h"
+#include "../modals/primitiveDisplayModal.h"
+#include "../models/box.h"
+#include "../models/sphere.h"
+#include "../models/cylinder.h"
+#include "../models/cone.h"
 #include <string>
 #include <vector>
 
