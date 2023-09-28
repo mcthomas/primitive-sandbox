@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Model::Model(float x, float y, float z, float size, const array<float,3>& color) {
+Model::Model(float x, float y, float z, float size, const array<float,3>& color) : x(x), y(y), z(z), size(size), color(color) {
 	this->x = x;
 	this->y = y;
 	this->z = z;

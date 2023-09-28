@@ -4,14 +4,15 @@
 using namespace std;
 
 class Model {
-private:
+protected:
 	float x;
 	float y;
 	float z;
 	float size;
 	array<float,3> color;
-public:
+protected:
 	Model(float x, float y, float z, float size, const array<float,3>& color);
+public:
 	float getSize();
 	virtual void setSize(float size) = 0;
 	array<float,3> getColor();

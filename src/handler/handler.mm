@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 0, 0, "Scene Models Count", 0, 0, 0, 0, 0, "Scene Models Size", 0, 0, 0, 0, 0, "Scene Models Color", 0, 0, 0, 0, 0)), primitiveModal(PrimitiveDisplayModal("Model Size", 0, 0, 0, 0, 0, "Model Color", 0, 0, 0, 0, 0)) {
+Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 100, 100, "Scene Models Count", 200, 300, 100, 100, 200, "Scene Models Size", 0, 0, 0, 0, 0, "Scene Models Color", 0, 0, 0, 0, 0)), primitiveModal(PrimitiveDisplayModal("Model Size", 0, 0, 0, 0, 0, "Model Color", 0, 0, 0, 0, 0)) {
 	drawSceneDisplay = true;
 	drawPrimitiveDisplay = true;
 }
@@ -35,6 +35,7 @@ void Handler::closeModal(bool isPrimitive) {
 	return;
 }
 void Handler::draw() {
+	this->gui.draw();
 	if(!drawSceneDisplay) {
 		//Method to hide modals?
 	}
@@ -42,16 +43,12 @@ void Handler::draw() {
 		//Method to hide modals?
 	}
 	for(Box i : boxes) {
-		i.draw();
 	}
 	for(Sphere i : spheres) {
-		i.draw();
 	}
 	for(Cylinder i : cylinders) {
-		i.draw();
 	}
 	for(Cone i : cones) {
-		i.draw();
 	}
 	return;
 }

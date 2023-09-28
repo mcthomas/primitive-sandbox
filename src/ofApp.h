@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofxiOS.h"
-#include "ofxGui.h"
 #include "handler/handler.h"
 
 class ofApp : public ofxiOSApp {
@@ -10,8 +9,8 @@ class ofApp : public ofxiOSApp {
 		void setup();
 		void update();
 		void draw();
-		ofxFloatSlider radius;
-		ofxPanel gui;
+		//ofxFloatSlider radius;
+		//ofxPanel gui;
 	private:
 		Handler handler;
 };

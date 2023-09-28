@@ -1,7 +1,12 @@
 #pragma once
 
-class Sphere {
+#include "model.h"
+
+class Sphere : public Model {
+private:
+	float radius;
 public:
-	Sphere();
-	void draw();
+	Sphere(float x, float y, float z, float size, const array<float,3>& color);
+	void setSize(float size);
+	void setRadiusHeight();
 };
