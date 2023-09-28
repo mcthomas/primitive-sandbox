@@ -6,5 +6,5 @@ Box::Box() {
 	
 }
 void Box::draw() {
-	
+	return;
 }

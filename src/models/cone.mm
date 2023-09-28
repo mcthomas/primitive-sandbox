@@ -6,6 +6,6 @@ Cone::Cone() {
 	
 }
 void Cone::draw() {
-	
+	return;
 }
 

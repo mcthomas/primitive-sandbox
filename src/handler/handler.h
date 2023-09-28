@@ -13,19 +13,21 @@ using namespace std;
 
 class Handler {
 private:
-	SceneDisplayModal* sceneModal;
-	PrimitiveDisplayModal* primitiveModal;
+	ofxPanel gui;
+	SceneDisplayModal sceneModal;
+	PrimitiveDisplayModal primitiveModal;
 	vector<Box> boxes;
 	vector<Sphere> spheres;
 	vector<Cylinder> cylinders;
 	vector<Cone> cones;
 	bool drawSceneDisplay;
 	bool drawPrimitiveDisplay;
-public:
-	Handler();
 	void rotateScene(float x1, float y1, float x2, float y2);
 	void displayModal(bool isPrimitive);
 	void closeModal(bool isPrimitive);
+public:
+	Handler();
+	void setup();
 	void draw();
 };
 

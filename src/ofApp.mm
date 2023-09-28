@@ -8,11 +8,12 @@ void ofApp::setup(){
 	gui.setup();
 	gui.add(radius.setup("radius", 140, 10, 300, 200, 800));
 //	radius.setSize(200, 800);
+	return;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+	return;
 }
 
 //--------------------------------------------------------------
@@ -23,4 +24,5 @@ void ofApp::draw(){
 	handler.draw();
 	ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, radius);
 	gui.draw();
+	return;
 }

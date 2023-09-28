@@ -6,5 +6,5 @@ Cylinder::Cylinder() {
 	
 }
 void Cylinder::draw() {
-	
+	return;
 }

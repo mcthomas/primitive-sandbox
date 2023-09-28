@@ -6,6 +6,6 @@ Sphere::Sphere() {
 	
 }
 void Sphere::draw() {
-	
+	return;
 }
 

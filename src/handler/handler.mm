@@ -2,14 +2,19 @@
 
 using namespace std;
 
-Handler::Handler(void) {
-	this->sceneModal = new SceneDisplayModal("Scene Models Count", 0, 0, 0, 0, 0, "Scene Models Size", 0, 0, 0, 0, 0, "Scene Models Color", 0, 0, 0, 0, 0);
-	this->primitiveModal = new PrimitiveDisplayModal("Model Size", 0, 0, 0, 0, 0, "Model Color", 0, 0, 0, 0, 0);
+Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 0, 0, "Scene Models Count", 0, 0, 0, 0, 0, "Scene Models Size", 0, 0, 0, 0, 0, "Scene Models Color", 0, 0, 0, 0, 0)), primitiveModal(PrimitiveDisplayModal("Model Size", 0, 0, 0, 0, 0, "Model Color", 0, 0, 0, 0, 0)) {
 	drawSceneDisplay = true;
 	drawPrimitiveDisplay = true;
 }
+void Handler::setup() {
+	this->gui.setup();
+	this->sceneModal.setup(&gui);
+	this->primitiveModal.setup(&gui);
+	//Setup camera iso?
+	//Populate models into vectors
+}
 void Handler::rotateScene(float x1, float y1, float x2, float y2) {
-	
+	return;
 }
 void Handler::displayModal(bool isPrimitive) {
 	if(isPrimitive) {
@@ -18,6 +23,7 @@ void Handler::displayModal(bool isPrimitive) {
 	else {
 		drawSceneDisplay = true;
 	}
+	return;
 }
 void Handler::closeModal(bool isPrimitive) {
 	if(isPrimitive) {
@@ -26,6 +32,7 @@ void Handler::closeModal(bool isPrimitive) {
 	else {
 		drawSceneDisplay = false;
 	}
+	return;
 }
 void Handler::draw() {
 	if(!drawSceneDisplay) {
@@ -46,4 +53,5 @@ void Handler::draw() {
 	for(Cone i : cones) {
 		i.draw();
 	}
+	return;
 }
