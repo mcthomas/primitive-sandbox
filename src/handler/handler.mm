@@ -34,13 +34,20 @@ void Handler::closeModal(bool isPrimitive) {
 	}
 	return;
 }
+void Handler::update() {
+	//Checks if btn was released after a press; increments current model type
+	this->sceneModal.checkBtnPressed();
+}
 void Handler::draw() {
-	this->gui.draw();
 	if(!drawSceneDisplay) {
 		//Method to hide modals?
 	}
 	if(!drawPrimitiveDisplay) {
 		//Method to hide modals?
+	}
+	this->gui.draw();
+	if(this->sceneModal.getModelType() == "box") {
+		ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, 100);
 	}
 	for(Box i : boxes) {
 	}

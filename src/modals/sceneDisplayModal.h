@@ -5,9 +5,19 @@
 
 using namespace std;
 
+struct ModelSelection {
+	string model;
+	ModelSelection* next;
+};
+
 class SceneDisplayModal : DisplayModel {
 private:
-	string modelType;
+	bool currBtnVal;
+	ModelSelection* model1;
+	ModelSelection* model2;
+	ModelSelection* model3;
+	ModelSelection* model4;
+	ModelSelection* modelType;
 public:
 	const string modelBtnName;
 	const float modelBtnWidth;
@@ -37,5 +47,6 @@ public:
 	SceneDisplayModal(const string& modelBtnName, float modelBtnWidth, float modelBtnHeight, const string& counterSliderName, float counterSliderDefaultVal, float counterSliderMinVal, float counterSliderMaxVal, float counterSliderWidth, float counterSliderHeight, const string& sizerSliderName, float sizerSliderDefaultVal, float sizerSliderMinVal, float sizerSliderMaxVal, float sizerSliderWidth, float sizerSliderHeight, const string& colorSliderName, float colorSliderDefaultVal, float colorSliderMinVal, float colorSliderMaxVal, float colorSliderWidth, float colorSliderHeight);
 	void setup(ofxPanel* gui);
 	string getModelType();
-	void setModelType(string modelType);
+	void checkBtnPressed();
+	void toggleModelType();
 };

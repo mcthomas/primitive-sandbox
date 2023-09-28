@@ -28,6 +28,7 @@ private:
 public:
 	Handler();
 	void setup();
+	void update();
 	void draw();
 };
 
