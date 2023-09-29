@@ -9,6 +9,7 @@ class ofApp : public ofxiOSApp {
 		void setup();
 		void update();
 		void draw();
+		void touchUp(ofTouchEventArgs & touch);
 		//ofxFloatSlider radius;
 		//ofxPanel gui;
 	private:

@@ -27,6 +27,7 @@ private:
 	void rotateScene(float x1, float y1, float x2, float y2);
 	void displayModal(bool isPrimitive);
 	void closeModal(bool isPrimitive);
+	void checkModelSelected();
 public:
 	Handler();
 	void setup();
@@ -36,5 +37,6 @@ public:
 	bool modelExistsHere(double x, double y, double z);
 	void addModels(double x, double y, double z, float color);
 	void draw();
+	void touch();
 };
 

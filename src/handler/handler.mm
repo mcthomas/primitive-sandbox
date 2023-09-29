@@ -168,33 +168,54 @@ void Handler::draw() {
 	ofTranslate(-1 * ofGetWidth() / 2, 0, -1 * ofGetWidth() / 2);
 	for(Box i : this->boxes) {
 		ofSetColor(i.getColor());
-		ofBoxPrimitive box;
-		box.setPosition(i.getX(), i.getY(), i.getZ());
-		box.set(i.getSize());
-		box.drawWireframe();
+		if(&i == this->primitiveModal.currentModel) {
+			ofDrawBox(i.getX(), i.getY(), i.getZ(), i.getSize());
+		}
+		else {
+			ofBoxPrimitive box;
+			box.setPosition(i.getX(), i.getY(), i.getZ());
+			box.set(i.getSize());
+			box.drawWireframe();
+		}
 	}
 	for(Sphere i : this->spheres) {
 		ofSetColor(i.getColor());
-		ofSpherePrimitive sphere;
-		sphere.setPosition(i.getX(), i.getY(), i.getZ());
-		sphere.setRadius(i.getRadius());
-		sphere.drawWireframe();
+		if(&i == this->primitiveModal.currentModel) {
+			ofDrawSphere(i.getX(), i.getY(), i.getZ(), i.getSize());
+		}
+		else {
+			ofSpherePrimitive sphere;
+			sphere.setPosition(i.getX(), i.getY(), i.getZ());
+			sphere.setRadius(i.getRadius());
+			sphere.drawWireframe();
+		}
 	}
 	for(Cylinder i : this->cylinders) {
 		ofSetColor(i.getColor());
-		ofCylinderPrimitive cylinder;
-		cylinder.setPosition(i.getX(), i.getY(), i.getZ());
-		cylinder.setRadius(i.getRadius());
-		cylinder.setHeight(i.getHeight());
-		cylinder.drawWireframe();
+		if(&i == this->primitiveModal.currentModel) {
+			ofDrawCylinder(i.getX(), i.getY(), i.getZ(), i.getRadius(), i.getHeight());
+		}
+		else {
+			ofCylinderPrimitive cylinder;
+			cylinder.setPosition(i.getX(), i.getY(), i.getZ());
+			cylinder.setRadius(i.getRadius());
+			cylinder.setHeight(i.getHeight());
+			cylinder.drawWireframe();
+		}
 	}
 	for(Cone i : this->cones) {
 		ofSetColor(i.getColor());
-		ofConePrimitive cone;
-		cone.setPosition(i.getX(), i.getY(), i.getZ());
-		cone.setRadius(i.getRadius());
-		cone.setHeight(i.getHeight());
-		cone.drawWireframe();
+		if(&i == this->primitiveModal.currentModel) {
+			ofDrawCone(i.getX(), i.getY(), i.getZ(), i.getRadius(), i.getHeight());
+		}
+		else {
+			ofConePrimitive cone;
+			cone.setPosition(i.getX(), i.getY(), i.getZ());
+			cone.setRadius(i.getRadius());
+			cone.setHeight(i.getHeight());
+			cone.drawWireframe();
+			ofDrawCircle(5, 5, 5);
+		}
 	}
 	ofPopMatrix();
 	ofPopMatrix();
@@ -207,4 +228,31 @@ void Handler::draw() {
 		//Method to hide modals?
 	}
 	return;
+}
+void Handler::touch() {
+	cout << ofGetMouseX() << endl;
+	cout << ofGetMouseY() << endl;
+	checkModelSelected();
+}
+void Handler::checkModelSelected() {
+	for(Box i : this->boxes) {
+		if((ofGetMouseX() + ofGetMouseY()) > (i.getX() + i.getY()) && (ofGetMouseX() + ofGetMouseY()) < (i.getX() + i.getY() + (2 * sqrt(i.getSize())))) {
+			this->primitiveModal.currentModel = &i;
+		}
+	}
+	for(Cylinder i : this->cylinders) {
+		if((ofGetMouseX() + ofGetMouseY()) > (i.getX() + i.getY()) && (ofGetMouseX() + ofGetMouseY()) < (i.getX() + i.getY() + (2 * sqrt(i.getSize())))) {
+			this->primitiveModal.currentModel = &i;
+		}
+	}
+	for(Cone i : this->cones) {
+		if((ofGetMouseX() + ofGetMouseY()) > (i.getX() + i.getY()) && (ofGetMouseX() + ofGetMouseY()) < (i.getX() + i.getY() + (2 * sqrt(i.getSize())))) {
+			this->primitiveModal.currentModel = &i;
+		}
+	}
+	for(Sphere i : this->spheres) {
+		if((ofGetMouseX() + ofGetMouseY()) > (i.getX() + i.getY()) && (ofGetMouseX() + ofGetMouseY()) < (i.getX() + i.getY() + (2 * sqrt(i.getSize())))) {
+			this->primitiveModal.currentModel = &i;
+		}
+	}
 }
