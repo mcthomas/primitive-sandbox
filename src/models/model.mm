@@ -10,11 +10,20 @@ Model::Model(float x, float y, float z, float size, const array<float,3>& color)
 	this->size = size;
 	this->color = color;
 }
+float Model::getX() {
+	return this->x;
+}
+float Model::getY() {
+	return this->y;
+}
+float Model::getZ() {
+	return this->z;
+}
 float Model::getSize() {
 	return this->size;
 }
-array<float,3> Model::getColor() {
-	return this->color;
+ofColor Model::getColor() {
+	return ofColor(this->color[0], this->color[1], this->color[2]);
 }
 void Model::setColor(float r, float g, float b) {
 	this->color[0] = ((color[0] + (r - color[0])) > 256) ?

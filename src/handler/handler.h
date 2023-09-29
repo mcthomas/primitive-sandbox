@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ofxiOS.h"
 #include "../modals/sceneDisplayModal.h"
 #include "../modals/primitiveDisplayModal.h"
 #include "../models/box.h"
@@ -22,6 +23,7 @@ private:
 	vector<Cone> cones;
 	bool drawSceneDisplay;
 	bool drawPrimitiveDisplay;
+	const int maxModels = 18;
 	void rotateScene(float x1, float y1, float x2, float y2);
 	void displayModal(bool isPrimitive);
 	void closeModal(bool isPrimitive);
@@ -29,6 +31,8 @@ public:
 	Handler();
 	void setup();
 	void update();
+	void updateVectors();
+	bool modelExistsHere(double x, double y, double z);
 	void draw();
 };
 

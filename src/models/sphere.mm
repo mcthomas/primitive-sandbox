@@ -15,3 +15,6 @@ void Sphere::setRadiusHeight() {
 	this->radius = this->size / 2;
 	return;
 }
+float Sphere::getRadius() {
+	return this->radius;
+}

@@ -16,3 +16,9 @@ void Cylinder::setRadiusHeight() {
 	this->height = this->size * .75;
 	return;
 }
+float Cylinder::getRadius() {
+	return this->radius;
+}
+float Cylinder::getHeight() {
+	return this->height;
+}

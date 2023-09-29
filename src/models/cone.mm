@@ -16,3 +16,9 @@ void Cone::setRadiusHeight() {
 	this->height = this->size * .75;
 	return;
 }
+float Cone::getRadius() {
+	return this->radius;
+}
+float Cone::getHeight() {
+	return this->height;
+}
