@@ -9,6 +9,8 @@ Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 100, 100,
 	drawPrimitiveDisplay = true;
 }
 void Handler::setup() {
+	ofSetFrameRate(60);
+	ofBackground(255, 255, 255);
 	this->gui.setup();
 	this->sceneModal.setup(&gui);
 	this->primitiveModal.setup(&gui);
@@ -56,27 +58,57 @@ void Handler::updateVectors() {
 		for(int j = 0; j < yRows; j++) {
 			modelCounter++;
 			if(modelCounter > this->sceneModal.counterSliderRef) {
+				removeModels(x, y, z);
 				break;
 			}
 			x = i * (boxSize + 10) + (boxSize / 2);
 			y = j * (boxSize + 10) + (boxSize / 2);
 			z = 0;
 			if(!(modelExistsHere(x, y, z))) {
-				if(this->sceneModal.getModelType() == "box") {
-					this->boxes.push_back(Box(x, y, z, this->sceneModal.sizerSliderRef, {256 - color, 256, color}));
-				}
-				else if(this->sceneModal.getModelType() == "cylinder") {
-					this->cylinders.push_back(Cylinder(x, y, z, this->sceneModal.sizerSliderRef, {color, 256, 256 - color}));
-				}
-				else if(this->sceneModal.getModelType() == "sphere") {
-					this->spheres.push_back(Sphere(x, y, z, this->sceneModal.sizerSliderRef, {256, color, 256}));
-				}
-				else {
-					this->cones.push_back(Cone(x, y, z, this->sceneModal.sizerSliderRef, {256, 256, color}));
-				}
+				addModels(x, y, z, color);
 			}
 		}
 	}
+}
+void Handler::removeModels(double x, double y, double z) {
+	float sum = (float)(x + y + z);
+	auto i = begin(this->boxes);
+	while (i != end(boxes)) {
+		if (i->getX() == (float)x && i->getY() == (float)y && i->getZ() == (float)z) {
+			i = boxes.erase(i);
+		}
+		else {
+			++i;
+		}
+	}
+	auto j = begin(this->cones);
+	while (j != end(cones)) {
+		if (j->getX() == (float)x && j->getY() == (float)y && j->getZ() == (float)z) {
+			j = cones.erase(j);
+		}
+		else {
+			++j;
+		}
+	}
+	auto k = begin(this->spheres);
+	while (k != end(spheres)) {
+		if (k->getX() == (float)x && k->getY() == (float)y && k->getZ() == (float)z) {
+			k = spheres.erase(k);
+		}
+		else {
+			++k;
+		}
+	}
+	auto l = begin(this->cylinders);
+	while (l != end(cylinders)) {
+		if (l->getX() == (float)x && l->getY() == (float)y && l->getZ() == (float)z) {
+			l = cylinders.erase(l);
+		}
+		else {
+			++l;
+		}
+	}
+	return;
 }
 bool Handler::modelExistsHere(double x, double y, double z) {
 	for (Box& i : this->boxes) {
@@ -101,20 +133,43 @@ bool Handler::modelExistsHere(double x, double y, double z) {
 	}
 	return false;
 }
+void Handler::addModels(double x, double y, double z, float color) {
+	if(this->sceneModal.getModelType() == "box") {
+		this->boxes.push_back(Box(x, y, z, this->sceneModal.sizerSliderRef, {256 - color, 256, color}));
+	}
+	else if(this->sceneModal.getModelType() == "cylinder") {
+		this->cylinders.push_back(Cylinder(x, y, z, this->sceneModal.sizerSliderRef, {color, 256, 256 - color}));
+	}
+	else if(this->sceneModal.getModelType() == "sphere") {
+		this->spheres.push_back(Sphere(x, y, z, this->sceneModal.sizerSliderRef, {256, color, 256}));
+	}
+	else {
+		this->cones.push_back(Cone(x, y, z, this->sceneModal.sizerSliderRef, {256, 256, color}));
+	}
+	return;
+}
 void Handler::draw() {
+	this->gui.draw();
 	if(!drawSceneDisplay) {
 		//Method to hide modals?
 	}
 	if(!drawPrimitiveDisplay) {
 		//Method to hide modals?
 	}
-	this->gui.draw();
 	if(this->sceneModal.getModelType() == "box") {
 		//ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, 100);
 	}
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2, 0, 0);
+	ofRotate(ofGetFrameNum() * .5, 0, 1, 0);
+	ofPushMatrix();
+	ofTranslate(-1 * ofGetWidth() / 2, 0, 0);
 	for(Box i : this->boxes) {
 		ofSetColor(i.getColor());
-		ofDrawBox(i.getX(), i.getY(), i.getZ(), i.getSize());
+		ofBoxPrimitive box;
+		box.setPosition(i.getX(), i.getY(), i.getZ());
+		box.set(i.getSize());
+		box.drawWireframe();
 	}
 	for(Sphere i : this->spheres) {
 		ofSetColor(i.getColor());
@@ -128,5 +183,8 @@ void Handler::draw() {
 		ofSetColor(i.getColor());
 		ofDrawCone(i.getX(), i.getY(), i.getZ(), i.getRadius(), i.getHeight());
 	}
+	ofPopMatrix();
+	ofPopMatrix();
 	return;
+	
 }

@@ -32,7 +32,9 @@ public:
 	void setup();
 	void update();
 	void updateVectors();
+	void removeModels(double x, double y, double z);
 	bool modelExistsHere(double x, double y, double z);
+	void addModels(double x, double y, double z, float color);
 	void draw();
 };
 
