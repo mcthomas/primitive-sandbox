@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 100, 100, "Scene Models Count", 9, 0, 18, 200, 100, "Scene Models Size", 100, 0, 200, 200, 100, "Scene Models Color", 128, 0, 256, 200, 100)), primitiveModal(PrimitiveDisplayModal("Model Size", 100, 0, 200, 200, 100, "Model Color", 128, 0, 256, 200, 100)) {
+Handler::Handler() : sceneModal(SceneDisplayModal("Scene Models Type", 100, 100, "Scene Models Count", 9, 0, 72, 200, 100, "Scene Models Size", 100, 0, 200, 200, 100, "Scene Models Color", 128, 0, 256, 200, 100)), primitiveModal(PrimitiveDisplayModal("Model Size", 100, 0, 200, 200, 100, "Model Color", 128, 0, 256, 200, 100)) {
 	drawSceneDisplay = true;
 	drawPrimitiveDisplay = true;
 }
@@ -45,27 +45,36 @@ void Handler::update() {
 	return;
 }
 void Handler::updateVectors() {
-	double depth = ofGetWidth() > ofGetHeight() ? ofGetWidth() : ofGetHeight();
+	//Get the total pixel count, divide into desired sub-areas,
 	double totalSpace = ofGetWidth() * ofGetHeight();
-	double sqrtSpace = sqrt((double)totalSpace/this->maxModels);
+	//Determine even sub-area 2D dimensions
+	double sqrtSpace = sqrt((double)totalSpace/this->maxPanelModels);
+	//Ensure we have space between drawn models
 	double boxSize = sqrtSpace - 28;
+	//Evenly divide the row count
 	int xRows = ofGetWidth() / (boxSize + 10);
-	int yRows = this->maxModels / xRows;
+	//Make disproportional from xRows for an optimized display ratio
+	int yRows = this->maxPanelModels / xRows;
+	//Keep X and Y equivalent
+	int zRows = xRows;
 	int modelCounter = 0;
 	float color = this->sceneModal.colorSliderRef;
 	double x, y, z;
-	for(int i = 0; i < xRows; i++) {
-		for(int j = 0; j < yRows; j++) {
-			modelCounter++;
-			if(modelCounter > this->sceneModal.counterSliderRef) {
-				removeModels(x, y, z);
-				break;
-			}
-			x = i * (boxSize + 10) + (boxSize / 2);
-			y = j * (boxSize + 10) + (boxSize / 2);
-			z = 0;
-			if(!(modelExistsHere(x, y, z))) {
-				addModels(x, y, z, color);
+	for(int t = 0; t < zRows; t++) {
+		for(int i = 0; i < xRows; i++) {
+			for(int j = 0; j < yRows; j++) {
+				modelCounter++;
+				//Determines the max count of models we actually draw
+				if(modelCounter > this->sceneModal.counterSliderRef) {
+					removeModels(x, y, z);
+					break;
+				}
+				x = i * (boxSize + 10) + (boxSize / 2);
+				y = j * (boxSize + 10) + (boxSize / 2);
+				z = t * (boxSize + 10) + (boxSize / 2);
+				if(!(modelExistsHere(x, y, z))) {
+					addModels(x, y, z, color);
+				}
 			}
 		}
 	}
@@ -149,21 +158,14 @@ void Handler::addModels(double x, double y, double z, float color) {
 	return;
 }
 void Handler::draw() {
-	this->gui.draw();
-	if(!drawSceneDisplay) {
-		//Method to hide modals?
-	}
-	if(!drawPrimitiveDisplay) {
-		//Method to hide modals?
-	}
-	if(this->sceneModal.getModelType() == "box") {
-		//ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, 100);
-	}
 	ofPushMatrix();
-	ofTranslate(ofGetWidth() / 2, 0, 0);
+	ofTranslate(ofGetWidth() / 8, ofGetHeight() / 8);
+	ofScale(0.75);
+	ofPushMatrix();
+	ofTranslate(ofGetWidth() / 2, 0, ofGetWidth() / 2);
 	ofRotate(ofGetFrameNum() * .5, 0, 1, 0);
 	ofPushMatrix();
-	ofTranslate(-1 * ofGetWidth() / 2, 0, 0);
+	ofTranslate(-1 * ofGetWidth() / 2, 0, -1 * ofGetWidth() / 2);
 	for(Box i : this->boxes) {
 		ofSetColor(i.getColor());
 		ofBoxPrimitive box;
@@ -173,18 +175,36 @@ void Handler::draw() {
 	}
 	for(Sphere i : this->spheres) {
 		ofSetColor(i.getColor());
-		ofDrawSphere(i.getX(), i.getY(), i.getZ(), i.getRadius());
+		ofSpherePrimitive sphere;
+		sphere.setPosition(i.getX(), i.getY(), i.getZ());
+		sphere.setRadius(i.getRadius());
+		sphere.drawWireframe();
 	}
 	for(Cylinder i : this->cylinders) {
 		ofSetColor(i.getColor());
-		ofDrawCylinder(i.getX(), i.getY(), i.getZ(), i.getRadius(), i.getHeight());
+		ofCylinderPrimitive cylinder;
+		cylinder.setPosition(i.getX(), i.getY(), i.getZ());
+		cylinder.setRadius(i.getRadius());
+		cylinder.setHeight(i.getHeight());
+		cylinder.drawWireframe();
 	}
 	for(Cone i : this->cones) {
 		ofSetColor(i.getColor());
-		ofDrawCone(i.getX(), i.getY(), i.getZ(), i.getRadius(), i.getHeight());
+		ofConePrimitive cone;
+		cone.setPosition(i.getX(), i.getY(), i.getZ());
+		cone.setRadius(i.getRadius());
+		cone.setHeight(i.getHeight());
+		cone.drawWireframe();
 	}
 	ofPopMatrix();
 	ofPopMatrix();
+	ofPopMatrix();
+	this->gui.draw();
+	if(!drawSceneDisplay) {
+		//Method to hide modals?
+	}
+	if(!drawPrimitiveDisplay) {
+		//Method to hide modals?
+	}
 	return;
-	
 }

@@ -23,7 +23,7 @@ private:
 	vector<Cone> cones;
 	bool drawSceneDisplay;
 	bool drawPrimitiveDisplay;
-	const int maxModels = 18;
+	const int maxPanelModels = 18;
 	void rotateScene(float x1, float y1, float x2, float y2);
 	void displayModal(bool isPrimitive);
 	void closeModal(bool isPrimitive);
